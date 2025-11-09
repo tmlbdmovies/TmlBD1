@@ -171,6 +171,14 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
     tele_configs = settings.find_one({"_id": "telegram_config"}) or {}
     site_config = settings.find_one({"_id": "site_config"}) or {}
     channels = tele_configs.get('channels', [])
+    
+    # MODIFIED START: Get custom button texts from settings
+    button_texts = tele_configs.get('button_texts', {})
+    main_button_text = button_texts.get('main_button', '✅ Watch on Website')
+    tutorial_button_text = button_texts.get('tutorial_button', '🤔 How to Download?')
+    adult_button_text = button_texts.get('adult_button', '🔞 18+ Exclusive Site')
+    promo_button_text = button_texts.get('promo_button', '❤️ Join Backup Channel')
+    # MODIFIED END
 
     if not channels and (not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHANNEL_ID):
         print("INFO: No Telegram channels configured. Skipping notification.")
@@ -187,7 +195,16 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
     try:
         # --- নতুন এবং সুন্দর ক্যাপশন তৈরি ---
         caption_parts = []
-        caption_parts.append(f"🔥 **New Content Added on {WEBSITE_NAME}!** 🔥")
+        
+        # MODIFIED START: More dynamic caption based on update type
+        if notification_type == 'update' and series_update_info:
+            caption_parts.append(f"⭐️ **New Update on {WEBSITE_NAME}!** ⭐️")
+            caption_parts.append(f"**{movie_data.get('title')}**")
+            caption_parts.append(f"`{series_update_info}`")
+        else:
+            caption_parts.append(f"🔥 **New Content Added on {WEBSITE_NAME}!** 🔥")
+        # MODIFIED END
+
         caption_parts.append("━━━━━━━━━━━━━━━━━")
 
         language = movie_data.get('language')
@@ -211,32 +228,32 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
         # --- ডাইনামিক ইনলাইন বাটন তৈরি ---
         inline_keyboard = []
         
-        # 1. Visit Website বাটন
-        encoded_id = base64.urlsafe_b64encode(str(content_id).encode()).decode()
-        visit_url = url_for('get_links_encoded', encoded_id=encoded_id, _external=True)
+        # MODIFIED START: Change main button to link to homepage
+        visit_url = url_for('home', _external=True)
         inline_keyboard.append([
-            {'text': '✅ Download / Watch Now', 'url': visit_url}
+            {'text': main_button_text, 'url': visit_url}
         ])
+        # MODIFIED END
 
         # 2. How to Download বাটন (যদি লিংক সেট করা থাকে)
         tutorial_url = site_config.get('tutorial_video_url')
         if tutorial_url:
             inline_keyboard.append([
-                {'text': '🤔 How to Download?', 'url': tutorial_url}
+                {'text': tutorial_button_text, 'url': tutorial_url}
             ])
 
         # 3. Adult Site বাটন (যদি লিংক সেট করা থাকে)
         adult_url = site_config.get('adult_site_url')
         if adult_url:
             inline_keyboard.append([
-                {'text': '🔞 18+ Exclusive Site', 'url': adult_url}
+                {'text': adult_button_text, 'url': adult_url}
             ])
             
         # 4. Promotional Site বাটন (যদি লিংক সেট করা থাকে)
         promo_url = site_config.get('promo_site_url')
         if promo_url:
              inline_keyboard.append([
-                {'text': '❤️ Join Backup Channel', 'url': promo_url}
+                {'text': promo_button_text, 'url': promo_url}
             ])
 
         reply_markup = json.dumps({'inline_keyboard': inline_keyboard})
@@ -1719,14 +1736,38 @@ admin_html = """
 
     <h2><i class="fab fa-telegram-plane"></i> Telegram Notification Channels</h2>
     <div class="management-section">
-        <form method="post" style="flex: 2; min-width: 300px; padding: 15px;">
-            <input type="hidden" name="form_action" value="update_telegram_settings">
-            <fieldset><legend>Add New Channel</legend>
-                <div class="form-group"><label>Bot Token:</label><input type="text" name="bot_token"></div>
-                <div class="form-group"><label>Channel ID (e.g., @mychannel or -100xxxxxxxxxx):</label><input type="text" name="channel_id"></div>
-                <button type="submit" name="submit_action" value="add_channel" class="btn btn-primary"><i class="fas fa-plus"></i> Add Channel</button>
-            </fieldset>
-        </form>
+        <div style="flex: 2; min-width: 300px;">
+            <form method="post" style="padding: 15px;">
+                <input type="hidden" name="form_action" value="update_telegram_settings">
+                <fieldset><legend>Add New Channel</legend>
+                    <div class="form-group"><label>Bot Token:</label><input type="text" name="bot_token"></div>
+                    <div class="form-group"><label>Channel ID (e.g., @mychannel or -100xxxxxxxxxx):</label><input type="text" name="channel_id"></div>
+                    <button type="submit" name="submit_action" value="add_channel" class="btn btn-primary"><i class="fas fa-plus"></i> Add Channel</button>
+                </fieldset>
+                
+                <!-- NEW/MODIFIED START: Form for customizing button texts -->
+                <fieldset><legend>Customize Notification Buttons</legend>
+                    <div class="form-group">
+                        <label>Main Action Button Text:</label>
+                        <input type="text" name="main_button_text" value="{{ telegram_settings.button_texts.main_button or '✅ Watch on Website' }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Tutorial Button Text:</label>
+                        <input type="text" name="tutorial_button_text" value="{{ telegram_settings.button_texts.tutorial_button or '🤔 How to Download?' }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Adult Site Button Text:</label>
+                        <input type="text" name="adult_button_text" value="{{ telegram_settings.button_texts.adult_button or '🔞 18+ Exclusive Site' }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Promotional Button Text:</label>
+                        <input type="text" name="promo_button_text" value="{{ telegram_settings.button_texts.promo_button or '❤️ Join Backup Channel' }}">
+                    </div>
+                    <button type="submit" name="submit_action" value="save_buttons" class="btn btn-primary"><i class="fas fa-save"></i> Save Button Texts</button>
+                </fieldset>
+                 <!-- NEW/MODIFIED END -->
+            </form>
+        </div>
         <div class="management-list" style="flex: 1; min-width: 300px;">
             <h3>Configured Channels</h3>
             {% for channel in telegram_channels %}
@@ -2536,6 +2577,21 @@ def admin_panel():
                 channel_id = request.form.get("channel_id", "").strip()
                 if bot_token and channel_id:
                     settings.update_one({"_id": "telegram_config"}, {"$push": {"channels": {"token": bot_token, "channel_id": channel_id}}}, upsert=True)
+            
+            # NEW/MODIFIED START: Handle saving of custom button texts
+            elif submit_action == "save_buttons":
+                button_texts = {
+                    "main_button": request.form.get("main_button_text").strip(),
+                    "tutorial_button": request.form.get("tutorial_button_text").strip(),
+                    "adult_button": request.form.get("adult_button_text").strip(),
+                    "promo_button": request.form.get("promo_button_text").strip(),
+                }
+                settings.update_one(
+                    {"_id": "telegram_config"},
+                    {"$set": {"button_texts": button_texts}},
+                    upsert=True
+                )
+            # NEW/MODIFIED END
         
         elif form_action == "add_category":
             category_name = request.form.get("category_name", "").strip()
