@@ -1749,19 +1749,19 @@ admin_html = """
                 <fieldset><legend>Customize Notification Buttons</legend>
                     <div class="form-group">
                         <label>Main Action Button Text:</label>
-                        <input type="text" name="main_button_text" value="{{ telegram_settings.button_texts.main_button or '✅ Watch on Website' }}">
+                        <input type="text" name="main_button_text" value="{{ telegram_settings.button_texts.get('main_button') or '✅ Watch on Website' }}">
                     </div>
                     <div class="form-group">
                         <label>Tutorial Button Text:</label>
-                        <input type="text" name="tutorial_button_text" value="{{ telegram_settings.button_texts.tutorial_button or '🤔 How to Download?' }}">
+                        <input type="text" name="tutorial_button_text" value="{{ telegram_settings.button_texts.get('tutorial_button') or '🤔 How to Download?' }}">
                     </div>
                     <div class="form-group">
                         <label>Adult Site Button Text:</label>
-                        <input type="text" name="adult_button_text" value="{{ telegram_settings.button_texts.adult_button or '🔞 18+ Exclusive Site' }}">
+                        <input type="text" name="adult_button_text" value="{{ telegram_settings.button_texts.get('adult_button') or '🔞 18+ Exclusive Site' }}">
                     </div>
                     <div class="form-group">
                         <label>Promotional Button Text:</label>
-                        <input type="text" name="promo_button_text" value="{{ telegram_settings.button_texts.promo_button or '❤️ Join Backup Channel' }}">
+                        <input type="text" name="promo_button_text" value="{{ telegram_settings.button_texts.get('promo_button') or '❤️ Join Backup Channel' }}">
                     </div>
                     <button type="submit" name="submit_action" value="save_buttons" class="btn btn-primary"><i class="fas fa-save"></i> Save Button Texts</button>
                 </fieldset>
@@ -2348,6 +2348,11 @@ def robots_txt():
     disallow_all = "User-agent: *\nDisallow: /"
     return Response(disallow_all, mimetype='text/plain')
 
+# NEW: Route to handle favicon.ico requests and prevent 404 errors in logs
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204
+
 @app.route('/')
 def home():
     query = request.args.get('q', '').strip()
@@ -2654,6 +2659,12 @@ def admin_panel():
 
     stats = {"total_content": movies.count_documents({}), "total_movies": movies.count_documents({"type": "movie"}), "total_series": movies.count_documents({"type": "series"}), "pending_requests": requests_collection.count_documents({"status": "Pending"})}
     tele_config_data = settings.find_one({"_id": "telegram_config"}) or {}
+    
+    # *** ERROR FIX START ***
+    # Ensure 'button_texts' key exists to prevent Jinja2 UndefinedError
+    tele_config_data.setdefault('button_texts', {})
+    # *** ERROR FIX END ***
+
     site_config = settings.find_one({"_id": "site_config"}) or {}
     headlines_text = '\n'.join(site_config.get('headlines', []))
     
