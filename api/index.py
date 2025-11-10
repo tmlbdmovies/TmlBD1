@@ -19,7 +19,7 @@ ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "Nahid421")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "Nahid421")
 WEBSITE_NAME = os.environ.get("WEBSITE_NAME", "CineZoneBD")
 DEVELOPER_TELEGRAM_ID = os.environ.get("DEVELOPER_TELEGRAM_ID", "CineZoneBDBot")
-WEBSITE_URL = os.environ.get("WEBSITE_URL", "https://your-website-url.com")
+WEBSITE_URL = os.environ.get("WEBSITE_URL", "https://your-website-url.com") 
 # নতুন: সুরক্ষিত অ্যাডমিন ইউআরএল
 ADMIN_URL = os.environ.get("ADMIN_URL", "/admin")
 
@@ -55,7 +55,7 @@ COMMUNITY_LINKS = [
 # --- App Initialization ---
 PLACEHOLDER_POSTER = "https://via.placeholder.com/400x600.png?text=Poster+Not+Found"
 ITEMS_PER_PAGE = 20
-ADMIN_ITEMS_PER_PAGE = 30
+ADMIN_ITEMS_PER_PAGE = 30 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "a_super_secret_key_for_flash_messages")
 
@@ -92,7 +92,7 @@ try:
         categories_to_insert = [{"name": cat, "order": i} for i, cat in enumerate(default_categories)]
         categories_collection.insert_many(categories_to_insert)
         print("SUCCESS: Initialized default categories in the database with order.")
-
+    
     if categories_collection.count_documents({"order": {"$exists": False}}) > 0:
         print("INFO: Migrating old categories to include 'order' field...")
         cats_to_update = list(categories_collection.find({"order": {"$exists": False}}))
@@ -121,7 +121,7 @@ try:
         movies.create_index("tmdb_id")
         movies.create_index("ott_platform")
         categories_collection.create_index("name", unique=True)
-        categories_collection.create_index("order")
+        categories_collection.create_index("order") 
         ott_collection.create_index("name", unique=True)
         requests_collection.create_index("status")
         print("SUCCESS: MongoDB indexes checked/created.")
@@ -171,7 +171,7 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
     tele_configs = settings.find_one({"_id": "telegram_config"}) or {}
     site_config = settings.find_one({"_id": "site_config"}) or {}
     channels = tele_configs.get('channels', [])
-
+    
     # MODIFIED START: Get custom button texts from settings
     button_texts = tele_configs.get('button_texts', {})
     main_button_text = button_texts.get('main_button', '✅ Watch on Website')
@@ -183,7 +183,7 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
     if not channels and (not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHANNEL_ID):
         print("INFO: No Telegram channels configured. Skipping notification.")
         return
-
+        
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHANNEL_ID:
         if not any(c.get('channel_id') == TELEGRAM_CHANNEL_ID for c in channels):
             channels.append({'token': TELEGRAM_BOT_TOKEN, 'channel_id': TELEGRAM_CHANNEL_ID})
@@ -195,7 +195,7 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
     try:
         # --- নতুন এবং সুন্দর ক্যাপশন তৈরি ---
         caption_parts = []
-
+        
         # MODIFIED START: More dynamic caption based on update type
         if notification_type == 'update' and series_update_info:
             caption_parts.append(f"⭐️ **New Update on {WEBSITE_NAME}!** ⭐️")
@@ -218,22 +218,22 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
                 quality_str = " | ".join(qualities)
         elif movie_data.get('type') == 'series':
             quality_str = "All Episodes"
-
+        
         caption_parts.append(f"💿 **Quality:** `{quality_str}`")
         caption_parts.append("━━━━━━━━━━━━━━━━━")
         caption_parts.append("👇 **Click Below to Watch or Download** 👇")
 
         final_caption = "\n".join(caption_parts)
-
+        
         # --- ডাইনামিক ইনলাইন বাটন তৈরি ---
         inline_keyboard = []
-
+        
         # *** FINAL CHANGE: Use WEBSITE_URL directly for reliable linking ***
-        visit_url = WEBSITE_URL
+        visit_url = WEBSITE_URL 
         inline_keyboard.append([
             {'text': main_button_text, 'url': visit_url}
         ])
-
+        
         # 2. How to Download বাটন (যদি লিংক সেট করা থাকে)
         tutorial_url = site_config.get('tutorial_video_url')
         if tutorial_url:
@@ -247,7 +247,7 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
             inline_keyboard.append([
                 {'text': adult_button_text, 'url': adult_url}
             ])
-
+            
         # 4. Promotional Site বাটন (যদি লিংক সেট করা থাকে)
         promo_url = site_config.get('promo_site_url')
         if promo_url:
@@ -285,7 +285,7 @@ def send_telegram_notification(movie_data, content_id, notification_type='new', 
 
         if sent_count == 0:
             print("WARNING: Notification attempt failed for all configured channels.")
-
+            
     except Exception as e:
         print(f"ERROR: Unexpected error in send_telegram_notification: {e}")
 
@@ -322,12 +322,12 @@ def inject_globals():
     ad_settings = settings.find_one({"_id": "ad_config"})
     design_settings = settings.find_one({"_id": "design_config"}) or {}
     site_config = settings.find_one({"_id": "site_config"}) or {}
-
+    
     all_categories = [cat['name'] for cat in categories_collection.find().sort("order", 1)]
     all_ott_platforms = list(ott_collection.find().sort("name", 1))
-
+    
     category_icons = { "Bangla": "fa-film", "Hindi": "fa-film", "English": "fa-film", "18+ Adult": "fa-exclamation-circle", "Korean": "fa-tv", "Dual Audio": "fa-headphones", "Bangla Dubbed": "fa-microphone-alt", "Hindi Dubbed": "fa-microphone-alt", "Horror": "fa-ghost", "Action": "fa-bolt", "Thriller": "fa-knife-kitchen", "Anime": "fa-dragon", "Romance": "fa-heart", "Trending": "fa-fire", "ALL MOVIES": "fa-layer-group", "WEB SERIES & TV SHOWS": "fa-tv-alt", "HOME": "fa-home" }
-
+    
     return dict(
         website_name=WEBSITE_NAME,
         logo_url=site_config.get('logo_url'),
@@ -707,7 +707,7 @@ index_html = """
       color: var(--text-dark);
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 769px) { 
     .container { padding: 0 40px; } .main-header { padding: 0 40px; }
     body { padding-bottom: 0; } .bottom-nav { display: none; }
     .hero-slider .hero-title { font-size: 2.2rem; }
@@ -1173,8 +1173,7 @@ detail_html = """
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   
   #info-pane p { font-size: 0.95rem; line-height: 1.8; color: var(--text-dark); text-align: justify; background-color: var(--card-bg); padding: 20px; border-radius: 8px; }
-  .link-group, .episode-list { display: flex; flex-direction: column; gap: 10px; max-width: 800px; margin: 0 auto; }
-  .link-group h3, .episode-list h3 { font-size: 1.2rem; font-weight: 500; margin-bottom: 10px; color: var(--text-dark); text-align: center; }
+  .link-group { display: flex; flex-direction: column; gap: 10px; max-width: 800px; margin: 0 auto; }
   .action-btn { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 15px 20px; border-radius: 8px; font-weight: 500; font-size: 1rem; color: white; background: linear-gradient(90deg, var(--g-1), var(--g-2), var(--g-1)); background-size: 200% 100%; transition: background-position 0.5s ease; }
   .action-btn:hover { background-position: 100% 0; }
   .category-section { margin: 50px 0; }
@@ -1281,39 +1280,17 @@ detail_html = """
                 <strong>Disclaimer:</strong> This site does not store any files on its server. All contents are provided by non-affiliated third parties. Clicking on the links will redirect you to third-party sites.
             </div>
             
-            {% if movie.type == 'movie' and (movie.links or movie.manual_links) %}
+            <!-- MODIFIED START: This block now shows a single 'Get Links' button for all content types -->
+            {% if movie.links or movie.manual_links or movie.episodes or movie.season_packs %}
                 <div class="link-group">
                     <a href="{{ url_for('get_links_encoded', encoded_id=movie._id|string|b64encode) }}" class="action-btn" style="justify-content: center; font-size: 1.2rem; padding: 18px;">
                         <span><i class="fas fa-bolt"></i> Get Links</span>
                     </a>
                 </div>
-            {% endif %}
-            
-            {% if movie.type == 'series' %}
-                <!-- MODIFIED START: Added a separate button for manual links in a series -->
-                {% if movie.manual_links %}
-                <div class="link-group" style="margin-bottom: 25px;">
-                    <a href="{{ url_for('get_links_encoded', encoded_id=movie._id|string|b64encode) }}" class="action-btn" style="justify-content: center; font-size: 1.1rem; padding: 16px;">
-                        <span><i class="fas fa-archive"></i> Get Other/Manual Links</span>
-                    </a>
-                </div>
-                {% endif %}
-                <!-- MODIFIED END -->
-
-                {% set all_seasons = ((movie.episodes | map(attribute='season') | list) + (movie.season_packs | map(attribute='season_number') | list)) | unique | sort %}
-                {% for season_num in all_seasons %}
-                    <div class="episode-list" style="margin-bottom: 20px;">
-                        <h3>Season {{ season_num }}</h3>
-                        <a href="{{ url_for('get_links_encoded', encoded_id=(movie._id|string ~ ':' ~ season_num)|b64encode) }}" class="action-btn" style="justify-content: center; font-size: 1.1rem; padding: 16px;">
-                            <span><i class="fas fa-list-ul"></i> Get Season {{ season_num }} Links</span>
-                        </a>
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-            {% if not movie.links and not movie.manual_links and not movie.episodes and not movie.season_packs %}
+            {% else %}
                 <p style="text-align:center; color: var(--text-dark);">No links available yet.</p>
             {% endif %}
+            <!-- MODIFIED END -->
         </div>
     </div>
     
@@ -2197,7 +2174,7 @@ generate_links_html = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Generating Links for {{ movie.title }} - {{ website_name }}</title>
+    <title>Download Links for {{ movie.title }} - {{ website_name }}</title>
     <link rel="icon" href="https://img.icons8.com/fluency/48/cinema-.png" type="image/png">
     <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
@@ -2206,19 +2183,24 @@ generate_links_html = """
     <style>
         :root { --primary-color: #E50914; --bg-color: #141414; --card-bg: #1a1a1a; --text-light: #ffffff; --text-dark: #a0a0a0; --g-1: #ff00de; --g-2: #00ffff; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
-        .main-container { background-color: var(--card-bg); padding: 25px; border-radius: 12px; max-width: 600px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .main-container { background-color: var(--card-bg); padding: 25px; border-radius: 12px; max-width: 700px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .movie-info { display: flex; align-items: center; gap: 20px; text-align: left; margin-bottom: 25px; }
         .movie-info img { width: 100px; border-radius: 8px; }
         .movie-info h1 { font-size: 1.5rem; margin: 0; }
         .movie-info p { color: var(--text-dark); margin: 5px 0 0; font-size: 0.9rem; }
         
-        #countdown-container p { font-size: 1.1rem; color: var(--text-dark); }
-        .timer { font-size: 2.5rem; font-weight: 700; color: var(--primary-color); margin: 15px 0; }
-        .loader { width: 50px; height: 50px; border: 5px solid #333; border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        #links-container { display: none; flex-direction: column; gap: 12px; margin-top: 20px; }
-        .link-button { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: white; font-weight: 600; padding: 15px 20px; border-radius: 8px; font-size: 1rem; background: linear-gradient(90deg, var(--g-1), var(--g-2), var(--g-1)); background-size: 200% 100%; transition: all 0.4s ease; }
+        #links-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .season-block { margin-bottom: 25px; }
+        .season-title { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            color: var(--primary-color); 
+            margin-bottom: 15px; 
+            text-align: left; 
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+        .link-button { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: white; font-weight: 600; padding: 15px 20px; border-radius: 8px; font-size: 1rem; background: linear-gradient(90deg, var(--g-1), var(--g-2), var(--g-1)); background-size: 200% 100%; transition: all 0.4s ease; margin-bottom: 10px; }
         .link-button:hover { background-position: 100% 0; transform: scale(1.03); }
         .link-button .quality { font-size: 1.1rem; text-align: left; }
         .link-button .icon i { font-size: 1.2rem; }
@@ -2235,17 +2217,12 @@ generate_links_html = """
             <img src="{{ movie.poster or 'https://via.placeholder.com/400x600.png?text=No+Image' }}" alt="{{ movie.title }}">
             <div>
                 <h1>{{ movie.title }}</h1>
-                <p>Links are being prepared...</p>
+                <p>All available links are listed below.</p>
             </div>
         </div>
 
-        <div id="countdown-container">
-            <p>Please wait for the links to be generated.</p>
-            <div class="timer"><span id="countdown">5</span> seconds</div>
-            <div class="loader"></div>
-        </div>
-
         <div id="links-container">
+            <!-- Movie Links -->
             {% if movie.type == 'movie' %}
                 {% for link in movie.links %}
                   {% if link.download_url %}
@@ -2261,70 +2238,54 @@ generate_links_html = """
                   </a>
                   {% endif %}
                 {% endfor %}
-                {% if movie.manual_links %}
-                    {% for m_link in movie.manual_links %}
-                    <a href="{{ m_link.url }}" target="_blank" class="link-button">
-                        <span class="quality">{{ m_link.name }}</span>
-                        <span class="icon"><i class="fas fa-link"></i></span>
-                    </a>
-                    {% endfor %}
-                {% endif %}
+            
+            <!-- Series Links -->
             {% elif movie.type == 'series' %}
-                <!-- MODIFIED START: This block now shows season-specific links and also manual links -->
-                {% if season_num is defined %}
-                    {% set season_pack = (movie.season_packs | selectattr('season_number', 'equalto', season_num) | first) if movie.season_packs else none %}
-                    {% if season_pack and (season_pack.download_link or season_pack.watch_link) %}
-                    <a href="{{ season_pack.download_link or season_pack.watch_link }}" target="_blank" class="link-button">
-                        <span class="quality">Season {{ season_num }} Complete</span>
-                        <span class="icon"><i class="fas fa-file-archive"></i></span>
-                    </a>
-                    {% endif %}
-                    
-                    {% for ep in episodes_for_season | sort(attribute='episode_number') %}
-                        {% if ep.watch_link %}
-                        <a href="{{ ep.watch_link }}" target="_blank" class="link-button">
-                            <span class="quality">Episode {{ ep.episode_number }}: {{ ep.title or 'Watch/Download' }}</span>
-                            <span class="icon"><i class="fas fa-play"></i></span>
+                {% set all_seasons = ((movie.episodes | map(attribute='season') | list) + (movie.season_packs | map(attribute='season_number') | list)) | unique | sort %}
+                
+                {% for season_num in all_seasons %}
+                    <div class="season-block">
+                        <h3 class="season-title">Season {{ season_num }}</h3>
+                        
+                        {% set season_pack = (movie.season_packs | selectattr('season_number', 'equalto', season_num) | first) if movie.season_packs else none %}
+                        {% if season_pack and (season_pack.download_link or season_pack.watch_link) %}
+                        <a href="{{ season_pack.download_link or season_pack.watch_link }}" target="_blank" class="link-button">
+                            <span class="quality">Season {{ season_num }} [Complete Pack]</span>
+                            <span class="icon"><i class="fas fa-file-archive"></i></span>
                         </a>
                         {% endif %}
-                    {% endfor %}
-                {% endif %}
+                        
+                        {% for ep in movie.episodes|selectattr('season', 'equalto', season_num)|sort(attribute='episode_number') %}
+                            {% if ep.watch_link %}
+                            <a href="{{ ep.watch_link }}" target="_blank" class="link-button">
+                                <span class="quality">Episode {{ ep.episode_number }} {% if ep.title %}- {{ ep.title }}{% endif %}</span>
+                                <span class="icon"><i class="fas fa-play"></i></span>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-                {% if movie.manual_links %}
+            <!-- Manual Links for BOTH movies and series -->
+            {% if movie.manual_links %}
+                <div class="season-block">
+                    <h3 class="season-title">Other Links</h3>
                     {% for m_link in movie.manual_links %}
                     <a href="{{ m_link.url }}" target="_blank" class="link-button">
                         <span class="quality">{{ m_link.name }}</span>
                         <span class="icon"><i class="fas fa-link"></i></span>
                     </a>
                     {% endfor %}
-                {% endif %}
-                 <!-- MODIFIED END -->
+                </div>
             {% endif %}
+
             <p class="disclaimer"><strong>Disclaimer:</strong> This site does not host any files. All links are provided by non-affiliated third parties. We are not responsible for the content on external sites.</p>
         </div>
         
         {% if ad_settings.ad_wait_page %}<div class="ad-container">{{ ad_settings.ad_wait_page | safe }}</div>{% endif %}
     </div>
 
-    <script>
-        (function() {
-            let timeLeft = 5;
-            const countdownElement = document.getElementById('countdown');
-            const countdownContainer = document.getElementById('countdown-container');
-            const linksContainer = document.getElementById('links-container');
-
-            const timer = setInterval(() => {
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    countdownContainer.style.display = 'none';
-                    linksContainer.style.display = 'flex';
-                } else {
-                    countdownElement.textContent = timeLeft;
-                }
-                timeLeft--;
-            }, 1000);
-        })();
-    </script>
     {{ ad_settings.ad_footer | safe }}
 </body>
 </html>
@@ -2448,49 +2409,33 @@ def request_content():
         return redirect(url_for('request_content'))
     return render_template_string(request_html)
 
-# --- নতুন: এনকোডেড আইডি দিয়ে সুরক্ষিত লিংক জেনারেশন ---
+# --- MODIFIED: The wait page link generation is now simpler ---
 @app.route('/get/<encoded_id>')
 def get_links_encoded(encoded_id):
+    # This URL now directly points to the final links page.
     target_url = url_for('generate_links_page', encoded_id=encoded_id)
+    # The wait page is shown to the user before redirection.
     return render_template_string(wait_page_html, target_url=target_url)
 
+# --- MODIFIED: The final links page now handles all link types ---
 @app.route('/links/<encoded_id>')
 def generate_links_page(encoded_id):
     try:
-        decoded_str = base64.urlsafe_b64decode(encoded_id).decode()
-        
-        movie_id_str, season_num = None, None
-        if ':' in decoded_str:
-            movie_id_str, season_num_str = decoded_str.split(':')
-            season_num = int(season_num_str)
-        else:
-            movie_id_str = decoded_str
+        # It no longer looks for a season number, only the movie ID.
+        decoded_id = base64.urlsafe_b64decode(encoded_id).decode()
+        movie = movies.find_one({"_id": ObjectId(decoded_id)})
 
-        movie = movies.find_one({"_id": ObjectId(movie_id_str)})
-        if not movie: return "Content not found.", 404
+        if not movie:
+            return "Content not found.", 404
 
-        episodes_for_season = []
-        has_movie_links = movie.get('links') or movie.get('manual_links')
-        
-        if movie.get('type') == 'series':
-            has_season_pack = False
-            if season_num is not None:
-                if 'episodes' in movie:
-                    episodes_for_season = [ep for ep in movie['episodes'] if ep.get('season') == season_num]
-                has_season_pack = any(p.get('season_number') == season_num for p in movie.get('season_packs', []))
-            
-            if not episodes_for_season and not has_season_pack and not movie.get('manual_links'):
-                 return f"No links found for this content.", 404
-        
-        elif movie.get('type') == 'movie' and not has_movie_links:
+        # Check if there are any links of any type to display.
+        has_any_links = movie.get('links') or movie.get('manual_links') or movie.get('episodes') or movie.get('season_packs')
+        if not has_any_links:
             return "No links found for this content.", 404
+        
+        # The template itself will handle the logic of displaying all link types.
+        return render_template_string(generate_links_html, movie=movie)
 
-        return render_template_string(
-            generate_links_html, 
-            movie=movie, 
-            season_num=season_num, 
-            episodes_for_season=episodes_for_season
-        )
     except Exception as e:
         print(f"Error in generate_links_page: {e}")
         return "Content not found or invalid ID.", 404
@@ -2608,7 +2553,6 @@ def admin_panel():
                 if bot_token and channel_id:
                     settings.update_one({"_id": "telegram_config"}, {"$push": {"channels": {"token": bot_token, "channel_id": channel_id}}}, upsert=True)
             
-            # NEW/MODIFIED START: Handle saving of custom button texts
             elif submit_action == "save_buttons":
                 button_texts = {
                     "main_button": request.form.get("main_button_text").strip(),
@@ -2621,7 +2565,6 @@ def admin_panel():
                     {"$set": {"button_texts": button_texts}},
                     upsert=True
                 )
-            # NEW/MODIFIED END
         
         elif form_action == "add_category":
             category_name = request.form.get("category_name", "").strip()
@@ -2685,10 +2628,7 @@ def admin_panel():
     stats = {"total_content": movies.count_documents({}), "total_movies": movies.count_documents({"type": "movie"}), "total_series": movies.count_documents({"type": "series"}), "pending_requests": requests_collection.count_documents({"status": "Pending"})}
     tele_config_data = settings.find_one({"_id": "telegram_config"}) or {}
     
-    # *** ERROR FIX START ***
-    # Ensure 'button_texts' key exists to prevent Jinja2 UndefinedError
     tele_config_data.setdefault('button_texts', {})
-    # *** ERROR FIX END ***
 
     site_config = settings.find_one({"_id": "site_config"}) or {}
     headlines_text = '\n'.join(site_config.get('headlines', []))
