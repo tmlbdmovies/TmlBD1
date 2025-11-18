@@ -13,12 +13,12 @@ import re
 import base64
 
 # --- Environment Variables ---
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://mewayo8672:mewayo8672@cluster0.ozhvczp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://tmlbdmovies:tmlbd198j@cluster0.op4v2d8.mongodb.net/?appName=Cluster0")
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "7dc544d9253bccc3cfecc1c677f69819")
-ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "Nahid421")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "Nahid421")
-WEBSITE_NAME = os.environ.get("WEBSITE_NAME", "CineZoneBD")
-DEVELOPER_TELEGRAM_ID = os.environ.get("DEVELOPER_TELEGRAM_ID", "CineZoneBDBot")
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "MRYEASINM@198")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "MRYEASINM@198")
+WEBSITE_NAME = os.environ.get("WEBSITE_NAME", "TmlBD")
+DEVELOPER_TELEGRAM_ID = os.environ.get("DEVELOPER_TELEGRAM_ID", "TMLBD_1BOT")
 WEBSITE_URL = os.environ.get("WEBSITE_URL", "https://your-website-url.com") 
 # নতুন: সুরক্ষিত অ্যাডমিন ইউআরএল
 ADMIN_URL = os.environ.get("ADMIN_URL", "/admin")
@@ -33,21 +33,21 @@ COMMUNITY_LINKS = [
         'subtitle': 'Get notified for every new upload',
         'icon_class': 'fas fa-bell',
         'icon_color': '#3b9eff',
-        'url': 'https://t.me/+YhqvLHXHdIViNTRl'
+        'url': 'https://t.me/+lRnqpCDs2pw3ZGZl'
     },
     {
         'title': 'Join Request Group',
         'subtitle': 'Request your favorite content',
         'icon_class': 'fas fa-comments',
         'icon_color': '#ffc107',
-        'url': 'https://t.me/Movie_Request_Group_23'
+        'url': 'https://t.me/TMLBD_CHAT'
     },
     {
         'title': 'Backup Channel',
         'subtitle': 'Join for future updates',
         'icon_class': 'fas fa-shield-alt',
         'icon_color': '#28a745',
-        'url': 'https://t.me/+60goZWp-FpkxNzVl'
+        'url': 'https://t.me/tmlbd'
     }
 ]
 
