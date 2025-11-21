@@ -172,7 +172,7 @@ index_html = """
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>{{ website_name }} - Your Entertainment Hub</title>
+<title>{{ website_name }} - ‌The Largest Movie Link Store Of Bangladesh</title>
 <link rel="icon" href="https://i.postimg.cc/LXSgKV1P/IMG-20251021-044957-147.jpg" type="image/png">
 <a name="description" content="Watch and download the latest movies and series on {{ website_name }}. Your ultimate entertainment hub.">
 <meta name="keywords" content="movies, series, download, watch online, {{ website_name }}, bengali movies, hindi movies, english movies">
