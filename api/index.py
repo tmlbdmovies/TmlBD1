@@ -1284,7 +1284,7 @@ body.light-mode .main-footer {
         <!-- Section 1: About the Site -->
         <div class="footer-column about-section">
             <a href="{{ url_for('home') }}" class="footer-logo">
-                <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="{{ website_name }} Logo">
+                <img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="{{ website_name }} Logo">
             </a>
             <p class="footer-description">
                 Your ultimate destination for the latest movies and web series. We are dedicated to providing a seamless entertainment experience.
@@ -2644,7 +2644,7 @@ wait_step1_html = """
 <body>
     <!-- Fixed Header HTML -->
     <header class="fixed-header">
-        <img src="https://i.postimg.cc/L4kGt56P/1000018917-removebg-preview.png" alt="Website Logo">
+        <img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="Website Logo">
     </header>
 
     <div id="top-content" class="page-section">
@@ -2758,7 +2758,7 @@ wait_step2_html = """
 </head>
 <body>
     <header class="fixed-header">
-        <img src="https://i.postimg.cc/L4kGt56P/1000018917-removebg-preview.png" alt="Website Logo">
+        <img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="Website Logo">
     </header>
 
     <div id="top-content" class="page-section">
@@ -2855,7 +2855,7 @@ wait_step3_html = """
 </head>
 <body>
     <header class="fixed-header">
-        <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="Website Logo">
+        <img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="Website Logo">
     </header>
 
     <div id="top-content" class="page-section">
