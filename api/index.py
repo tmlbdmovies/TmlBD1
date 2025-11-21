@@ -1096,7 +1096,7 @@ body.light-mode .main-footer {
             <div class="ticker-label">Notice</div>
             <div class="ticker-content">
                 <p class="ticker-text">
-                    A warm welcome to you at {{ website_name }}. Here you can search and explore all the latest movies and web series. If you can't find your favorite content, feel free to let us know using the 'Request' option. For all the latest updates and news on new releases, please join our official Telegram channel: @PrimeCineZone. Thank you for visiting and stay with us. ••• {{ website_name }} এ আপনাকে আন্তরিকভাবে স্বাগতম। এখানে আপনি নতুন-পুরানো সব মুভি ও সিরিজ সার্চ করতে এবং দেখতে পারবেন। আপনার পছন্দের কোনো কনটেন্ট খুঁজে না পেলে, 'Request' অপশন ব্যবহার করে আমাদের জানাতে পারেন। সর্বশেষ আপডেট এবং নতুন সব কনটেন্টের খবরের জন্য আমাদের টেলিগ্রাম চ্যানেলে যোগ দিন: @PrimeCineZone। আমাদের সাথে থাকার জন্য ধন্যবাদ।
+                    A warm welcome to you at {{ website_name }}. Here you can search and explore all the latest movies and web series. If you can't find your favorite content, feel free to let us know using the 'Request' option. For all the latest updates and news on new releases, please join our official Telegram channel: @mlswtv. Thank you for visiting and stay with us. ••• {{ website_name }} এ আপনাকে আন্তরিকভাবে স্বাগতম। এখানে আপনি নতুন-পুরানো সব মুভি ও সিরিজ সার্চ করতে এবং দেখতে পারবেন। আপনার পছন্দের কোনো কনটেন্ট খুঁজে না পেলে, 'Request' অপশন ব্যবহার করে আমাদের জানাতে পারেন। সর্বশেষ আপডেট এবং নতুন সব কনটেন্টের খবরের জন্য আমাদের টেলিগ্রাম চ্যানেলে যোগ দিন: @mlswtv। আমাদের সাথে থাকার জন্য ধন্যবাদ।
                 </p>
             </div>
         </div>
@@ -1305,15 +1305,15 @@ body.light-mode .main-footer {
         <div class="footer-column community-section">
             <h4 class="footer-column-title">Join Our Community</h4>
             <div class="telegram-buttons-container">
-                <a href="https://t.me/+YhqvLHXHdIViNTRl" target="_blank" class="telegram-button notification">
+                <a href="https://t.me/+44eeWi-YTL41MTY1" target="_blank" class="telegram-button notification">
                     <i class="fas fa-bell"></i>
                     <span><strong>New Content Alerts</strong><small>Get notified for every new upload</small></span>
                 </a>
-                <a href="https://t.me/+YhqvLHXHdIViNTRl" target="_blank" class="telegram-button request">
+                <a href="https://t.me/mlswtvChat" target="_blank" class="telegram-button request">
                     <i class="fas fa-comments"></i>
                     <span><strong>Join Request Group</strong><small>Request your favorite content</small></span>
                 </a>
-                <a href="https://t.me/TGLinkBase" target="_blank" class="telegram-button backup">
+                <a href="https://t.me/mlswtv" target="_blank" class="telegram-button backup">
                     <i class="fas fa-shield-alt"></i>
                     <span><strong>Backup Channel</strong><small>Join for future updates</small></span>
                 </a>
@@ -2499,15 +2499,15 @@ body.light-mode .episode-item {
         <div class="footer-column community-section">
             <h4 class="footer-column-title">Join Our Community</h4>
             <div class="telegram-buttons-container">
-                <a href="https://t.me/+YhqvLHXHdIViNTRl" target="_blank" class="telegram-button notification">
+                <a href="https://t.me/+44eeWi-YTL41MTY1" target="_blank" class="telegram-button notification">
                     <i class="fas fa-bell"></i>
                     <span><strong>New Content Alerts</strong><small>Get notified for every new upload</small></span>
                 </a>
-                <a href="https://t.me/+YhqvLHXHdIViNTRl" target="_blank" class="telegram-button request">
+                <a href="https://t.me/mlswtvChat" target="_blank" class="telegram-button request">
                     <i class="fas fa-comments"></i>
                     <span><strong>Join Request Group</strong><small>Request your favorite content</small></span>
                 </a>
-                <a href="https://t.me/+YhqvLHXHdIViNTRl" target="_blank" class="telegram-button backup">
+                <a href="https://t.me/mlswtv" target="_blank" class="telegram-button backup">
                     <i class="fas fa-shield-alt"></i>
                     <span><strong>Backup Channel</strong><small>Join for future updates</small></span>
                 </a>
@@ -2671,7 +2671,7 @@ wait_step1_html = """
             <a href="{{ next_step_url }}" class="action-btn ready">Continue</a>
         </div>
     </div>
-    <a href="https://t.me/PrimeCineZone" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+    <a href="https://t.me/mlswtv" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
   <footer class="main-footer">
       <p>&copy; 2025 {{ website_name }}. All Rights Reserved.</p>
   </footer>
@@ -2784,7 +2784,7 @@ wait_step2_html = """
             <a href="{{ next_step_url }}" class="action-btn ready">Continue to Final Step</a>
         </div>
     </div>
-    <a href="https://t.me/TGLinkBase" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+    <a href="https://t.me/mlswtv" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
   <footer class="main-footer">
       <p>&copy; 2025 {{ website_name }}. All Rights Reserved.</p>
   </footer>
@@ -3596,15 +3596,15 @@ download_hub_html = """
         <div class="footer-column community-section">
             <h4 class="footer-column-title">Join Our Community</h4>
             <div class="telegram-buttons-container">
-                <a href="https://t.me/+Uj3tb0Qpr59iOTM1" target="_blank" class="telegram-button notification">
+                <a href="https://t.me/+44eeWi-YTL41MTY1" target="_blank" class="telegram-button notification">
                     <i class="fas fa-bell"></i>
                     <span><strong>New Content Alerts</strong><small>Get notified for every new upload</small></span>
                 </a>
-                <a href="https://t.me/+PD1WvVZzW6FlODZl" target="_blank" class="telegram-button request">
+                <a href="https://t.me/mlswtvChat" target="_blank" class="telegram-button request">
                     <i class="fas fa-comments"></i>
                     <span><strong>Join Request Group</strong><small>Request your favorite content</small></span>
                 </a>
-                <a href="https://t.me/PrimeCineZone" target="_blank" class="telegram-button backup">
+                <a href="https://t.me/mlswtv" target="_blank" class="telegram-button backup">
                     <i class="fas fa-shield-alt"></i>
                     <span><strong>Backup Channel</strong><small>Join for future updates</small></span>
                 </a>
@@ -3772,15 +3772,15 @@ series_hub_html = """
         <div class="footer-column community-section">
             <h4 class="footer-column-title">Join Our Community</h4>
             <div class="telegram-buttons-container">
-                <a href="https://t.me/+Uj3tb0Qpr59iOTM1" target="_blank" class="telegram-button notification">
+                <a href="https://t.me/+44eeWi-YTL41MTY1" target="_blank" class="telegram-button notification">
                     <i class="fas fa-bell"></i>
                     <span><strong>New Content Alerts</strong><small>Get notified for every new upload</small></span>
                 </a>
-                <a href="https://t.me/+PD1WvVZzW6FlODZl" target="_blank" class="telegram-button request">
+                <a href="https://t.me/mlswtvChat" target="_blank" class="telegram-button request">
                     <i class="fas fa-comments"></i>
                     <span><strong>Join Request Group</strong><small>Request your favorite content</small></span>
                 </a>
-                <a href="https://t.me/PrimeCineZone" target="_blank" class="telegram-button backup">
+                <a href="https://t.me/mlswtv" target="_blank" class="telegram-button backup">
                     <i class="fas fa-shield-alt"></i>
                     <span><strong>Backup Channel</strong><small>Join for future updates</small></span>
                 </a>
@@ -3943,7 +3943,7 @@ create_website_html = """
         <p>আমরা খুব যত্ন সহকারে এবং আপনার চাহিদা অনুযায়ী আধুনিক ও আকর্ষণীয় ওয়েবসাইট তৈরি করে দেই। আমাদের বিশেষজ্ঞ টিম আপনাকে সেরা মানের পরিষেবা এবং সার্বক্ষণিক সহায়তা প্রদান করবে।</p>
         <p>আপনার স্বপ্নের ওয়েবসাইটটি তৈরি করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
         
-        <a href="https://t.me/ctgmovies23" target="_blank" class="contact-button">
+        <a href="https://t.me/SVFADMINBOT" target="_blank" class="contact-button">
             <i class="fa-brands fa-telegram"></i>
             <span>Contact Us on Telegram</span>
         </a>
@@ -4067,7 +4067,7 @@ def send_to_telegram(movie_data, movie_id):
         "inline_keyboard": [
             [{"text": "✅ Watch on Website", "url": watch_url}],
             [{"text": "🤔 How to Download?", "url": HOW_TO_DOWNLOAD_URL}],
-            [{"text": "🔔 Join Our Backup Channel", "url": "https://t.me/TGLinkBase"}] # <-- নতুন বাটন
+            [{"text": "🔔 Join Our Backup Channel", "url": "https://t.me/mlswtv"}] # <-- নতুন বাটন
         ]
     }
     reply_markup = json.dumps(keyboard)
