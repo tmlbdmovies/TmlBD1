@@ -11,7 +11,7 @@ import math # Added for pagination calculation
 import json # <--- এই লাইনটি যোগ করুন
 
 # --- Environment Variables ---
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://mesohas358:mesohas358@cluster0.6kxy1vc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://roxiw19528:roxiw19528@cluster0.vl508y4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "7dc544d9253bccc3cfecc1c677f69819")
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "Nahid270")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "Nahid270")
