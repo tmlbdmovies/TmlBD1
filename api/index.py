@@ -960,7 +960,7 @@ body.light-mode .main-footer {
 <header class="main-header">
     <div class="container header-content">
     <a href="{{ url_for('home') }}" class="logo">
-    <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="{{ website_name }} Logo" style="height: 45px; width: auto;">
+    <img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="{{ website_name }} Logo" style="height: 45px; width: auto;">
 </a>
     <div style="display: flex; align-items: center;">
         <div class="theme-toggle">
