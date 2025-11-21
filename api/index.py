@@ -2478,7 +2478,7 @@ body.light-mode .episode-item {
         <!-- Section 1: About the Site -->
         <div class="footer-column about-section">
             <a href="{{ url_for('home') }}" class="footer-logo">
-                <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="{{ website_name }} Logo">
+                <img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="{{ website_name }} Logo">
             </a>
             <p class="footer-description">
                 Your ultimate destination for the latest movies and web series. We are dedicated to providing a seamless entertainment experience.
