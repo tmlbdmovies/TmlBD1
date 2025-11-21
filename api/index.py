@@ -988,7 +988,7 @@ body.light-mode .main-footer {
     </div>
 </div>
 <main>
-  {% macro render_movie_card(m, is_featured=True) %} {# ★ নতুন is_featured ভেরিয়েবল যোগ করা হলো #}
+  {% macro render_movie_card(m, is_featured=false) %} {# ★ নতুন is_featured ভেরিয়েবল যোগ করা হলো #}
     <a href="{{ url_for('movie_detail', movie_id=m._id) }}" class="movie-card">
       <div class="poster-wrapper">
         <div class="card-preloader">
