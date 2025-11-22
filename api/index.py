@@ -3590,7 +3590,7 @@ download_hub_html = """
 <!-- Professional Footer -->
 <footer class="professional-footer">
     <div class="footer-grid">
-        <div class="footer-column about-section"><a href="{{ url_for('home') }}" class="footer-logo"><img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="{{ website_name }} Logo"></a><p class="footer-description">Your ultimate destination for the latest movies and web series. We are dedicated to providing a seamless entertainment experience.</p></div>
+        <div class="footer-column about-section"><a href="{{ url_for('home') }}" class="footer-logo"><img src="https://i.postimg.cc/Hk7WjmfN/1000019626-removebg-preview.png" alt="{{ website_name }} Logo"></a><p class="footer-description">Your ultimate destination for the latest movies and web series. We are dedicated to providing a seamless entertainment experience.</p></div>
         <div class="footer-column links-section"><h4 class="footer-column-title">Site Links</h4><ul><li><a href="{{ url_for('dmca') }}"><i class="fas fa-gavel"></i> DMCA Policy</a></li><li><a href="{{ url_for('disclaimer') }}"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li><li><a href="{{ url_for('create_website') }}"><i class="fas fa-palette"></i> Create Your Website</a></li></ul></div>
         <!-- Section 3: Join Our Community -->
         <div class="footer-column community-section">
